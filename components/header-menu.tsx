@@ -16,15 +16,15 @@ export default function HeaderMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <AiOutlineMenu className="text-2xl md:hidden" />
+        <AiOutlineMenu className="text-2xl" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {NavLinks.map((link) => (
-          <DropdownMenuItem key={link.name}>
+        {NavLinks.map((link, i) => (
+          <DropdownMenuItem key={i}>
             <Link
               href={link.path}
-              className={clsx("text-slate-600 hover:text-slate-800", {
-                "text-slate-800": pathname === link.path,
+              className={clsx("text-slate-500 hover:text-slate-950", {
+                "text-slate-950": pathname === link.path,
               })}
             >
               {link.name}

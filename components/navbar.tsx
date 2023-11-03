@@ -12,19 +12,19 @@ export default function Navbar() {
   return (
     <>
       <nav className="md:flex items-center gap-5 hidden">
-        {NavLinks.map((link) => (
+        {NavLinks.map((link, i) => (
           <Link
-            key={link.name}
+            key={i}
             href={link.path}
-            className={clsx("text-slate-600 hover:text-slate-800", {
-              "text-slate-800": pathname === link.path,
+            className={clsx("text-slate-500 hover:text-slate-950", {
+              "text-slate-950": pathname === link.path,
             })}
           >
             {link.name}
           </Link>
         ))}
       </nav>
-      <div>
+      <div className="md:hidden">
         <HeaderMenu />
       </div>
     </>
