@@ -3,15 +3,18 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavLinks } from "./navlinks";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUserStore } from "@/hooks/user-store";
 
 export default function HeaderMenu() {
   const pathname = usePathname();
+  const userStore: any = useUserStore();
 
   return (
     <DropdownMenu>
@@ -31,6 +34,16 @@ export default function HeaderMenu() {
             </Link>
           </DropdownMenuItem>
         ))}
+        <DropdownMenuItem>
+          <Link
+            href={userStore.user ? "/profile" : "/login"}
+            className={clsx("text-slate-500 hover:text-slate-950", {
+              "text-slate-950": pathname === ("/login" || "profile"),
+            })}
+          >
+            {userStore.user ? "Profile" : "Login"}
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

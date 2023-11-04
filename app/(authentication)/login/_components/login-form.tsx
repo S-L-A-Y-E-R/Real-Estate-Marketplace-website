@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +19,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUserStore } from "@/hooks/user-store";
+import GoogleAuth from "@/components/google-auth";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -30,6 +33,7 @@ const formSchema = z.object({
 export default function LoginForm() {
   const [error, setError] = useState(null);
   const router = useRouter();
+  const userStore: any = useUserStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,7 +50,18 @@ export default function LoginForm() {
         values
       );
 
+      Cookies.set("accessToken", response.data.accessToken);
+      Cookies.set("refreshToken", response.data.refreshToken);
+
       if (response.status === 200) {
+        userStore.setUser({
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+          id: response.data.data.user._id,
+          name: response.data.data.user.username,
+          email: response.data.data.user.email,
+          photo: response.data.data.user.photo,
+        });
         router.push("/");
       }
     } catch (err: any) {
@@ -93,9 +108,7 @@ export default function LoginForm() {
           <Button type="submit" className="w-full">
             Submit
           </Button>
-          <Button type="button" className="w-full bg-red-500 hover:bg-red-400">
-            Continue With Google
-          </Button>
+          <GoogleAuth />
           {error && <p className="text-red-500 text-center">{error}</p>}
           <div className="text-center">
             <p className="text-gray-500">
