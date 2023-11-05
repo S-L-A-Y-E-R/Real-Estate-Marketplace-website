@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { inter } from "@/components/ui/fonts";
 import "@/app/styles/globals.css";
+import ToastProvider from "@/providers/toast-provider";
 
 export const metadata: Metadata = {
   title: "Real Estate Marketplace",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <ToastProvider />
+        {children}
+      </body>
     </html>
   );
 }

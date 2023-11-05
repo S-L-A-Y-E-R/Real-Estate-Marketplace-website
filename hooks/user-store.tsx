@@ -2,8 +2,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 type User = null | {
-  refreshToken: string;
-  accessToken: string;
   id: string;
   name: string;
   email: string;
