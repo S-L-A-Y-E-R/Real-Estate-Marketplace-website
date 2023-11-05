@@ -35,7 +35,19 @@ export default function Navbar() {
             {link.name}
           </Link>
         ))}
-        {!userStore.user && (
+        {userStore.user ? (
+          <Link href={"/profile"}>
+            <Avatar>
+              <AvatarImage
+                src={userStore.user?.photo || "/public/default.jpeg"}
+                className="w-full h-full object-contain"
+              />
+              <AvatarFallback>
+                {userStore.user.name.slice(0, 1).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
+        ) : (
           <Link
             href={"/login"}
             className={clsx("text-slate-500 hover:text-slate-950", {
@@ -43,16 +55,6 @@ export default function Navbar() {
             })}
           >
             Login
-          </Link>
-        )}
-        {userStore.user && (
-          <Link href={"/profile"}>
-            <Avatar>
-              <AvatarImage src={userStore.user.photo} />
-              <AvatarFallback>
-                {userStore.user.name.slice(0, 1).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
           </Link>
         )}
       </nav>

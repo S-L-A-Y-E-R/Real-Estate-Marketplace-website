@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -65,21 +66,20 @@ export default function SignupForm() {
         values
       );
 
+      Cookies.set("accessToken", response.data.accessToken);
+      Cookies.set("refreshToken", response.data.refreshToken);
+
       if (response.status === 201) {
         userStore.setUser({
-          accessToken: response.data.accessToken,
-          refreshToken: response.data.refreshToken,
           id: response.data.data.user._id,
           name: response.data.data.user.username,
           email: response.data.data.user.email,
-          photo: response.data.data.user.photo,
+          photo: `${process.env.API_URL}api/v1/users/get-photo/${response.data.data.user._id}`,
         });
         router.push("/");
       }
     } catch (err: any) {
-      console.log(err);
-
-      setError(err.response.data.message);
+      setError(err.response.data.message || err.message);
     }
   }
 

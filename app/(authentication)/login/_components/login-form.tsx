@@ -55,19 +55,17 @@ export default function LoginForm() {
 
       if (response.status === 200) {
         userStore.setUser({
-          accessToken: response.data.accessToken,
-          refreshToken: response.data.refreshToken,
           id: response.data.data.user._id,
           name: response.data.data.user.username,
           email: response.data.data.user.email,
-          photo: response.data.data.user.photo,
+          photo: `${process.env.API_URL}api/v1/users/get-photo/${response.data.data.user._id}`,
         });
         router.push("/");
       }
     } catch (err: any) {
       console.log(err);
 
-      setError(err.response.data.message);
+      setError(err.response.data.message || err.message);
     }
   }
 
