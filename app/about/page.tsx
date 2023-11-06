@@ -10,7 +10,7 @@ export default function About() {
             About Trend Estate
           </h3>
           <p className="text-center md:text-left leading-10">
-            Sahand Estate is a leading real estate agency that specializes in
+            Trend Estate is a leading real estate agency that specializes in
             helping clients buy, sell, and rent properties in the most desirable
             neighborhoods.
             <br />

@@ -5,7 +5,7 @@ const nextConfig = {
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
   },
   images: {
-    domains: ["lh3.googleusercontent.com", "localhost"],
+    domains: ["lh3.googleusercontent.com", "localhost", "images.unsplash.com"],
   },
 };
 
