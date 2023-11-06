@@ -11,7 +11,9 @@ import { useRef } from "react";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
+import { Listing } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -41,16 +43,25 @@ export default function ProfileForm() {
   const userName = useRef<HTMLInputElement>(null);
   const userEmail = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const [listings, setListings] = useState<Listing[]>([]);
 
   useEffect(() => {
-    const getUserData = async () => {
-      const user = await getUser();
-      setUserData(user);
-      userName.current!.value = user.username;
-      userEmail.current!.value = user.email;
+    userName.current!.value = userStore.user.name;
+    userEmail.current!.value = userStore.user.email;
+    const getListings = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.API_URL}api/v1/listing?user=${userStore.user.id}`
+        );
+        console.log(data.data);
+
+        setListings(data.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    getUserData();
-  }, []);
+    getListings();
+  }, [userStore.user.email, userStore.user.id, userStore.user.name]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -205,11 +216,12 @@ export default function ProfileForm() {
           <Button type="submit" className="w-full">
             Update
           </Button>
+
           <Button
             type="button"
             className="w-full bg-green-700 hover:bg-green-500"
           >
-            Create Listing
+            <Link href="/create-listing">Create Listing</Link>
           </Button>
           <div className="flex justify-between">
             <Button
