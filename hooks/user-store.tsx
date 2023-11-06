@@ -1,12 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-type User = null | {
-  id: string;
-  name: string;
-  email: string;
-  photo: string;
-};
+import { User } from "@/types/userType";
 
 export const useUserStore = create(
   persist(
