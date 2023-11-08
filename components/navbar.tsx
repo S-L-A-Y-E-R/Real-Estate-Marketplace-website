@@ -28,8 +28,8 @@ export default function Navbar() {
           <Link
             key={i}
             href={link.path}
-            className={clsx("text-slate-500 hover:text-slate-950", {
-              "text-slate-950": pathname === link.path,
+            className={clsx("text-gray-500 hover:text-gray-900", {
+              "text-gray-900": pathname === link.path,
             })}
           >
             {link.name}
@@ -50,8 +50,8 @@ export default function Navbar() {
         ) : (
           <Link
             href={"/login"}
-            className={clsx("text-slate-500 hover:text-slate-950", {
-              "text-slate-950": pathname === "/login",
+            className={clsx("text-gray-500 hover:text-gray-900", {
+              "text-gray-900": pathname === "/login",
             })}
           >
             Login
