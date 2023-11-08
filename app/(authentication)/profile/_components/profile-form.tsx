@@ -15,7 +15,7 @@ import Link from "next/link";
 import clsx from "clsx";
 
 import ListingBox from "./listing-box";
-import { Listing } from "@/lib/types";
+import { Listing } from "@/types/listingType";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -130,11 +130,22 @@ export default function ProfileForm() {
 
   const deleteListingHandler = async (id: string) => {
     try {
-      await axios.delete(`${process.env.API_URL}api/v1/listing/${id}`, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
+      const response = await axios.delete(
+        `${process.env.API_URL}api/v1/listing/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      if (response.data.status === 401) {
+        const { data } = await axios.post(
+          `${process.env.API_URL}api/v1/users/refresh-token`,
+          Cookies.get("refreshToken")
+        );
+
+        Cookies.set("accessToken", data.accessToken);
+      }
       setListings((prev) => prev.filter((listing) => listing._id !== id));
       toast.success("Listing Deleted");
     } catch (err: any) {

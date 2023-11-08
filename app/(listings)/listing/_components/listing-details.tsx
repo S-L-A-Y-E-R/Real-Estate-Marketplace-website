@@ -1,9 +1,9 @@
 import { Listing } from "@/types/listingType";
-import { Bath, Bed, MapIcon, ParkingSquareIcon, Table } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/hooks/user-store";
 
+import { Bath, Bed, MapIcon, ParkingSquareIcon, Table } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 

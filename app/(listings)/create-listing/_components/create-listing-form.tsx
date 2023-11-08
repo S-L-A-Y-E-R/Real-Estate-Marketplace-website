@@ -102,12 +102,24 @@ export default function CreateListingForm() {
     images.forEach((image) => formData.append("images", image));
 
     try {
-      await axios.post(`${process.env.API_URL}api/v1/listing`, formData, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `${process.env.API_URL}api/v1/listing`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.data.status === 401) {
+        const { data } = await axios.post(
+          `${process.env.API_URL}api/v1/users/refresh-token`,
+          Cookies.get("refreshToken")
+        );
+
+        Cookies.set("accessToken", data.accessToken);
+      }
       toast.success("Listing created successfully.");
     } catch (err: any) {
       console.log(err.response.data.message || err.message);
