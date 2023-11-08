@@ -19,7 +19,7 @@ export default function SearchPage() {
     const getListings = async () => {
       setLoading(true);
       try {
-        const data = await getListingOnLoading(params, page);
+        const data = await getListingOnLoading(page);
         setListings(data);
       } catch (e) {
         console.log(e);

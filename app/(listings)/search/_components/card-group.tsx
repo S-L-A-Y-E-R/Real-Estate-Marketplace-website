@@ -22,9 +22,9 @@ export default function CardGroup({
   }, []);
 
   return (
-    <section className="p-7 space-y-10">
+    <section className="p-7 basis-2/3 space-y-10">
       <h2 className="text-2xl opacity-80 font-semibold">Listing results:</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+      <div className="flex flex-wrap gap-10 justify-center ">
         {listings.length > 0 &&
           listings.map((listing) => (
             <ListingCard
