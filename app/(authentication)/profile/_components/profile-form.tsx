@@ -184,8 +184,8 @@ export default function ProfileForm() {
             >
               <Image
                 src={
-                  photoUrl ||
                   `${process.env.API_URL}api/v1/users/get-photo/${userStore?.user?.id}` ||
+                  photoUrl ||
                   "/default.jpeg"
                 }
                 alt="profile picture"
