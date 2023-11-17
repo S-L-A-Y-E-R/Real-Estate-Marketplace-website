@@ -24,7 +24,7 @@ export default function CardGroup({
   return (
     <section className="p-7 basis-2/3 space-y-10">
       <h2 className="text-2xl opacity-80 font-semibold">Listing results:</h2>
-      <div className="flex flex-wrap gap-10 justify-center ">
+      <div className="flex flex-wrap gap-5 justify-center ">
         {listings.length > 0 &&
           listings.map((listing) => (
             <ListingCard

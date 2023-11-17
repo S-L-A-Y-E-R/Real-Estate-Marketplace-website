@@ -2,7 +2,6 @@
 
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 import { app } from "@/lib/firebase";
@@ -10,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/hooks/user-store";
 
 export default function GoogleAuth() {
-  const router = useRouter();
   const userStore: any = useUserStore();
 
   const handleGoogleAuth = async () => {
@@ -42,7 +40,7 @@ export default function GoogleAuth() {
           email: response.data.data.user.email,
           photo: response.data.data.user.photo,
         });
-        router.push("/");
+        window.location.assign("/");
       }
     } catch (err) {
       console.log(err);

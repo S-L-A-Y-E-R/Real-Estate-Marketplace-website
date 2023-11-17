@@ -107,7 +107,7 @@ export default function ProfileForm() {
   const logoutHandler = () => {
     Cookies.remove("refreshToken");
     Cookies.remove("accessToken");
-    router.push("/login");
+    window.location.assign("/login");
     userStore.logout();
   };
 

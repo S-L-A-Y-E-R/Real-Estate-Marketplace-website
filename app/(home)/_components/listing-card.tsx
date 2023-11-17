@@ -17,7 +17,8 @@ export default function ListingCard({ listing }: { listing: Listing }) {
 
   return (
     <Card
-      className="shadow-md hover:cursor-pointer hover:shadow-xl transition-all group overflow-hidden duration-300"
+      className="shadow-md hover:cursor-pointer hover:shadow-xl transition-all
+       group overflow-hidden duration-300  sm:basis-1/2 md:basis-2/5 lg:basis-1/4"
       onClick={() => push(`/listing/${listing._id}`)}
     >
       <CardHeader className="p-0">

@@ -3,7 +3,7 @@
 import Header from "@/components/header";
 import { ListingCarousel } from "../_components/listing-carousel";
 import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import axios from "axios";
 
 import { Listing } from "@/types/listingType";
@@ -34,7 +34,7 @@ export default function ListingPage() {
       <Header />
       <ListingCarousel
         images={listing?.images ? listing.images : []}
-        userId={userStore.user.id}
+        userId={userStore?.user?.id}
       />
       <ListingDetails listing={listing!} />
     </>

@@ -29,7 +29,7 @@ export default function Header() {
 
   return (
     <header className="bg-[#E2E8F0] shadow-xl py-5">
-      <div className="container flex justify-between items-center gap-4 mx-auto px-24">
+      <div className="container flex justify-between items-center gap-4 mx-auto md:px-24">
         <Link href="/">
           <span className="font-semibold text-[#64748B] md:text-2xl">
             Trend
