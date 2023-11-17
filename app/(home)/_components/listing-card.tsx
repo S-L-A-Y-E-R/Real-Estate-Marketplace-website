@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -22,7 +23,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
       onClick={() => push(`/listing/${listing._id}`)}
     >
       <CardHeader className="p-0">
-        <Image
+        <img
           src={`${process.env.API_URL}api/v1/listing/654834b145050d71d4a9a3d7/listing-image/${listing.images[0]}`}
           alt="listing image"
           height={150}
