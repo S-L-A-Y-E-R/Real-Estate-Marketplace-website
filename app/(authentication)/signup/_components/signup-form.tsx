@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -46,7 +45,6 @@ const formSchema = z
 
 export default function SignupForm() {
   const [error, setError] = useState(null);
-  const router = useRouter();
   const userStore: any = useUserStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -76,7 +74,7 @@ export default function SignupForm() {
           email: response.data.data.user.email,
           photo: `${process.env.API_URL}api/v1/users/get-photo/${response.data.data.user._id}`,
         });
-        router.push("/");
+        window.location.assign("/");
       }
     } catch (err: any) {
       setError(err.response.data.message || err.message);
