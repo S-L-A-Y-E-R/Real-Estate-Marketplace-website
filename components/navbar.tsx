@@ -39,7 +39,10 @@ export default function Navbar() {
           <Link href={"/profile"}>
             <Avatar>
               <AvatarImage
-                src={userStore.user?.photo || "/public/default.jpeg"}
+                src={
+                  `${process.env.API_URL}api/v1/users/get-photo/${userStore?.user?.id}` ||
+                  "/public/default.jpeg"
+                }
                 className="w-full h-full object-contain"
               />
               <AvatarFallback>
