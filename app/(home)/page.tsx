@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-async-client-component */
 "use client";
+import { useState, useEffect } from "react";
 
 import { Listing } from "@/types/listingType";
 import Header from "@/components/header";
@@ -7,32 +8,49 @@ import LandingText from "./_components/landing-text";
 import { ListingCarousel } from "./_components/home-slider";
 import { getListingOnLoading } from "@/actions/pagination";
 import RecentSections from "./_components/recent-sections";
+import axios from "axios";
 
-export default async function Home() {
-  const listingsPromise: Promise<Listing[]> = getListingOnLoading(1, 4);
-  const recentOffersPromise: Promise<Listing[]> = getListingOnLoading(
-    1,
-    4,
-    "offer=true"
-  );
-  const resentPlacesForRentPromise: Promise<Listing[]> = getListingOnLoading(
-    1,
-    4,
-    "type=rent"
-  );
-  const resentPlacesForSalePromise: Promise<Listing[]> = getListingOnLoading(
-    1,
-    4,
-    "type=sell"
-  );
+export default function Home() {
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [recentOffers, setRecentOffers] = useState<Listing[]>([]);
+  const [resentPlacesForRent, setResentPlacesForRent] = useState<Listing[]>([]);
+  const [resentPlacesForSale, setResentPlacesForSale] = useState<Listing[]>([]);
 
-  const [listings, recentOffers, resentPlacesForRent, resentPlacesForSale] =
-    await Promise.all([
-      listingsPromise,
-      recentOffersPromise,
-      resentPlacesForRentPromise,
-      resentPlacesForSalePromise,
-    ]);
+  useEffect(() => {
+    async function fetchListings() {
+      const listingsPromise: Promise<Listing[]> = axios.get(
+        `${process.env.API_URL}api/v1/listing?page=1&limit=4`
+      );
+
+      const recentOffersPromise: Promise<Listing[]> = axios.get(
+        `${process.env.API_URL}api/v1/listing?page=1&limit=4&offer=true`
+      );
+      const resentPlacesForRentPromise: Promise<Listing[]> = axios.get(
+        `${process.env.API_URL}api/v1/listing?page=1&limit=4&type=rent`
+      );
+      const resentPlacesForSalePromise: Promise<Listing[]> = axios.get(
+        `${process.env.API_URL}api/v1/listing?page=1&limit=4&type=sell`
+      );
+
+      const [
+        listings,
+        recentOffers,
+        resentPlacesForRent,
+        resentPlacesForSale,
+      ]: any = await Promise.all([
+        listingsPromise,
+        recentOffersPromise,
+        resentPlacesForRentPromise,
+        resentPlacesForSalePromise,
+      ]);
+
+      setListings(listings.data.data);
+      setRecentOffers(recentOffers.data.data);
+      setResentPlacesForRent(resentPlacesForRent.data.data);
+      setResentPlacesForSale(resentPlacesForSale.data.data);
+    }
+    fetchListings();
+  }, []);
 
   return (
     <>

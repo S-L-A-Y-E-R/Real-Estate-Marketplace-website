@@ -47,7 +47,7 @@ export default function ListingDetails({ listing }: { listing: Listing }) {
             {`${listing?.furnished ? "Furnished" : "Not Furnished"}`}
           </div>
         </div>
-        {!openForm && listing?.user?._id !== userStore.user.id && (
+        {!openForm && listing?.user?._id && (
           <Button className="w-full" onClick={() => setOpenForm(true)}>
             Contact Landlord
           </Button>
